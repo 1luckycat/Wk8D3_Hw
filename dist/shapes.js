@@ -15,10 +15,20 @@ class Characters {
         this.weaponArray.push(weapon);
     }
     removeWeapon(weaponId) {
-        this.weaponArray = this.weaponArray.filter(weapon => weapon.id !== weaponId);
+        // old code to try to remove a weapon from weapon list
+        // this.weaponArray = this.weaponArray.filter(weapon => weapon.id !== weaponId)
+        const index = this.weaponArray.findIndex((weapon) => weapon.name === weaponId);
+        if (index !== -1) {
+            this.weaponArray.splice(index, 1);
+        }
     }
     printStats() {
-        console.log(`Weapons List: ${this.weaponArray.map(weapon => weapon.name).join(', ')}, Gold: ${this.gold}`);
+        // old code to get just name of weapons and gold
+        // console.log(`Weapons List: ${this.weaponArray.map(weapon => weapon.name).join(', ')}, Gold: ${this.gold}`)
+        // changed to get all weapon information
+        for (let i of this.weaponArray) {
+            console.log(i);
+        }
     }
 }
 exports.Characters = Characters;

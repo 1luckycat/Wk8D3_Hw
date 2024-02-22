@@ -45,5 +45,10 @@ orgesMoney.collectGold(10)
 
 
 let knight1 = new Knights(50, weapons3)
+let newWeapon = new Weapon("Staff", 75, "Magical stick")
+knight1.addWeapon(newWeapon)
 knight1.printStats()
+knight1.removeWeapon('Staff')
+knight1.printStats()
+
 

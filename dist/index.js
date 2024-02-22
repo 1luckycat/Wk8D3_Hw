@@ -32,5 +32,8 @@ for (let def of defArray) {
 let orgesMoney = new shapes_1.Orges(10, weapons);
 orgesMoney.collectGold(10);
 let knight1 = new shapes_1.Knights(50, weapons3);
-knight1.addWeapon;
+let newWeapon = new shapes_1.Weapon("Staff", 75, "Magical stick");
+knight1.addWeapon(newWeapon);
+knight1.printStats();
+knight1.removeWeapon('Staff');
 knight1.printStats();
