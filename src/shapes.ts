@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 
 export abstract class Characters {
-    private weaponArray: Weapon[] = [];
+    public weaponArray: Weapon[] = [];
     constructor(protected gold$: number, weaponArray: Weapon[]){
         this.weaponArray = weaponArray;
     }
@@ -25,7 +25,7 @@ export abstract class Characters {
 
         if (index !== -1){
             this.weaponArray.splice(index, 1)
-        }
+        } 
     }
 
     public printStats(){
@@ -40,7 +40,7 @@ export abstract class Characters {
 
 
 export interface Attack{
-    att():void
+    att(chooseWeapon?: string):void
 }
 
 export interface Defense{
@@ -57,8 +57,25 @@ export class Orges extends Characters implements Attack, Defense, Collect{
         super(gold, weaponArray)
     }
     
-    att():void {
-        console.log(`Orge attacked with a club!`)
+    att(chooseWeapon: string):void {
+        // old code
+        // console.log(`Orge attacked with a club!`)
+        
+        /**
+         * 
+         * Created a new attack method where you can choose to input a certain weapon in the list and output attacked with that weapon
+         * or optional input which will output the original weapon used for that character
+         * or give another output if that weapon chosen is not in the list
+         * 
+         */
+        const choseWeapon = this.weaponArray.findIndex((weapon) => weapon.name === chooseWeapon)
+        if (choseWeapon in this.weaponArray){
+            console.log(`Orge attacked with ${chooseWeapon}!`)
+        } else if (chooseWeapon === undefined) {
+            console.log(`Orge attacked with a club!`)
+        } else {
+            console.log(`Dont have ${chooseWeapon}! Orge attacked with their fists instead!`)
+        }
     }
     
     def():void {
@@ -77,8 +94,25 @@ export class Peons extends Characters implements Attack, Defense, Collect{
         super(gold, weaponArray)
     }
     
-    att():void {
-        console.log(`Peons attacked with a club!`)
+    att(chooseWeapon: string):void {
+        // old code
+        // console.log(`Peons attacked with a club!`)
+        
+        /**
+         * 
+         * Created a new attack method where you can choose to input a certain weapon in the list and output attacked with that weapon
+         * or optional input which will output the original weapon used for that character
+         * or give another output if that weapon chosen is not in the list
+         * 
+         */
+        const choseWeapon = this.weaponArray.findIndex((weapon) => weapon.name === chooseWeapon)
+        if (choseWeapon in this.weaponArray){
+            console.log(`Peons attacked with ${chooseWeapon}!`)
+        } else if (chooseWeapon === undefined) {
+            console.log(`Peons attacked with a club!`)
+        } else {
+            console.log(`Dont have ${chooseWeapon}! Peons attacked with their fists instead!`)
+        }
     }
     
     def():void {
@@ -97,12 +131,29 @@ export class Knights extends Characters implements Attack, Defense, Collect{
         super(gold, weaponArray)
     }
     
-    att():void {
-        console.log(`Knights attacked with a club!`)
+    att(chooseWeapon: string):void {
+        // old code
+        // console.log(`Knight attacked with a sword!`)
+        
+        /**
+         * 
+         * Created a new attack method where you can choose to input a certain weapon in the list and output attacked with that weapon
+         * or optional input which will output the original weapon used for that character
+         * or give another output if that weapon chosen is not in the list
+         * 
+         */
+        const choseWeapon = this.weaponArray.findIndex((weapon) => weapon.name === chooseWeapon)
+        if (choseWeapon in this.weaponArray){
+            console.log(`Knight attacked with ${chooseWeapon}!`)
+        } else if (chooseWeapon === undefined) {
+            console.log(`Knight attacked with a sword!`)
+        } else {
+            console.log(`Dont have ${chooseWeapon}! Knight attacked with their fists instead!`)
+        }
     }
     
     def():void {
-        console.log("Knights defending with a shield!")
+        console.log("Knights defending with armor!")
     }
     
     collectGold(getGold: number){
@@ -117,12 +168,29 @@ export class Archers extends Characters implements Attack, Defense, Collect{
         super(gold, weaponArray)
     }
     
-    att():void {
-        console.log(`Archers attacked with a club!`)
+    att(chooseWeapon: string):void {
+        // old code
+        // console.log(`Archer attacked with a bow and arrows!`)
+        
+        /**
+         * 
+         * Created a new attack method where you can choose to input a certain weapon in the list and output attacked with that weapon
+         * or optional/no input which will output the original weapon used for that character
+         * or give another output if that weapon chosen is not in the list
+         * 
+         */
+        const choseWeapon = this.weaponArray.findIndex((weapon) => weapon.name === chooseWeapon)
+        if (choseWeapon in this.weaponArray){
+            console.log(`Archer attacked with ${chooseWeapon}!`)
+        } else if (chooseWeapon === undefined) {
+            console.log(`Archer attacked with a bow and arrows!`)
+        } else {
+            console.log(`Dont have ${chooseWeapon}! Archer attacked with their fists instead!`)
+        }
     }
     
     def():void {
-        console.log("Archers defending with a shield!")
+        console.log("Archers defending with only their tunic!")
     }
     
     collectGold(getGold: number){
