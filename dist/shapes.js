@@ -3,75 +3,91 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Weapon = exports.Archers = exports.Knights = exports.Peons = exports.Orges = exports.Characters = void 0;
 const uuid_1 = require("uuid");
 class Characters {
-    constructor(gold$) {
+    constructor(gold$, weaponArray) {
         this.gold$ = gold$;
+        this.weaponArray = [];
+        this.weaponArray = weaponArray;
     }
-    get gold() { return this.gold$; }
+    get gold() {
+        return this.gold$;
+    }
+    addWeapon(weapon) {
+        this.weaponArray.push(weapon);
+    }
+    removeWeapon(weaponId) {
+        this.weaponArray = this.weaponArray.filter(weapon => weapon.id !== weaponId);
+    }
+    printStats() {
+        console.log(`Weapons List: ${this.weaponArray.map(weapon => weapon.name).join(', ')}, Gold: ${this.gold}`);
+    }
 }
 exports.Characters = Characters;
 class Orges extends Characters {
-    constructor(gold) {
-        super(gold);
+    constructor(gold, weaponArray) {
+        super(gold, weaponArray);
     }
     att() {
-        console.log("Orge attacked with a club!");
+        console.log(`Orge attacked with a club!`);
     }
     def() {
         console.log("Orge defending with a shield!");
     }
-    get(getGold) {
-        return this.gold$ + getGold;
+    collectGold(getGold) {
+        this.gold$ += getGold;
+        console.log(this.gold$);
     }
 }
 exports.Orges = Orges;
 class Peons extends Characters {
-    constructor(gold) {
-        super(gold);
+    constructor(gold, weaponArray) {
+        super(gold, weaponArray);
     }
     att() {
-        console.log("Peon attacked with a club!");
+        console.log(`Peons attacked with a club!`);
     }
     def() {
-        console.log("Peon defending with a shield!");
+        console.log("Peons defending with a shield!");
     }
-    get(getGold) {
-        return this.gold + getGold;
+    collectGold(getGold) {
+        this.gold$ += getGold;
+        console.log(this.gold$);
     }
 }
 exports.Peons = Peons;
 class Knights extends Characters {
-    constructor(gold) {
-        super(gold);
+    constructor(gold, weaponArray) {
+        super(gold, weaponArray);
     }
     att() {
-        console.log("Knight attacked with a sword!");
+        console.log(`Knights attacked with a club!`);
     }
     def() {
-        console.log("Knight defending with armor!");
+        console.log("Knights defending with a shield!");
     }
-    get(getGold) {
-        return this.gold + getGold;
+    collectGold(getGold) {
+        this.gold$ += getGold;
+        console.log(this.gold$);
     }
 }
 exports.Knights = Knights;
 class Archers extends Characters {
-    constructor(gold) {
-        super(gold);
+    constructor(gold, weaponArray) {
+        super(gold, weaponArray);
     }
     att() {
-        console.log("Archer attacked with bow and arrows!");
+        console.log(`Archers attacked with a club!`);
     }
     def() {
-        console.log("Archer defending with only a tunic!");
+        console.log("Archers defending with a shield!");
     }
-    get(getGold) {
-        return this.gold + getGold;
+    collectGold(getGold) {
+        this.gold$ += getGold;
+        console.log(this.gold$);
     }
 }
 exports.Archers = Archers;
 class Weapon {
-    constructor(id, name, damagePoints, description) {
-        this.id = id;
+    constructor(name, damagePoints, description) {
         this.id = (0, uuid_1.v4)(),
             this.name = name,
             this.description = description;

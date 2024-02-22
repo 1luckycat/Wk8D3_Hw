@@ -3,24 +3,26 @@ import { v4 as uuidv4 } from 'uuid'
 
 
 export abstract class Characters {
-    constructor(protected gold$: number, weaponArray: Weapon[]){}
-    get gold(){return this.gold$}
+    private weaponArray: Weapon[] = [];
+    constructor(protected gold$: number, weaponArray: Weapon[]){
+        this.weaponArray = weaponArray;
+    }
+    
+    get gold(){
+        return this.gold$;
+    }
     
 
-    addWeapon(){
-        if (name: string): Weapon[] {
-            return weaponArray.append(name)
-        }
+    addWeapon(weapon: Weapon):void {
+        this.weaponArray.push(weapon)
     }
 
-    removeWeapon(){
-        if (name:string in weaponArray: Weapon[]): Weapon[]{
-            weaponArray.pop(name)
-        }
+    removeWeapon(weaponId: string):void {
+        this.weaponArray = this.weaponArray.filter(weapon => weapon.id !== weaponId)
     }
 
     printStats(){
-        console.log(`Weapons List: ${weaponArray}`)
+        console.log(`Weapons List: ${this.weaponArray.map(weapon => weapon.name).join(', ')}, Gold: ${this.gold}`)
     }
 }
 
@@ -34,96 +36,86 @@ export interface Defense{
 }
 
 export interface Collect{
-    get():void
+    collectGold(amount: number):void
 }
 
-// export interface addWeapon{
-//     if (name: string): Weapon[] {
-//         return weaponArray.append(name)
-//     }
-// }
 
-// export interface removeWeapon{
-//     if (name:string in weaponArray: Weapon[]): Weapon[]{
-//         weaponArray.pop(name)
-//     }
-// }
-
-
-
-
-export class Orges extends Characters implements Attack, Defense{
+export class Orges extends Characters implements Attack, Defense, Collect{
     constructor(gold: number, weaponArray: Weapon[]){
         super(gold, weaponArray)
     }
     
     att():void {
-        console.log("Orge attacked with a club!")
+        console.log(`Orge attacked with a club!`)
     }
     
     def():void {
         console.log("Orge defending with a shield!")
     }
     
-    get(getGold: number){
-        return this.gold + getGold
+    collectGold(getGold: number){
+        this.gold$ += getGold
+        console.log(this.gold$)
     }
     
 }
 
-export class Peons extends Characters implements Attack, Defense{
+export class Peons extends Characters implements Attack, Defense, Collect{
     constructor(gold: number, weaponArray: Weapon[]){
         super(gold, weaponArray)
     }
     
     att():void {
-        console.log("Peon attacked with a club!")
+        console.log(`Peons attacked with a club!`)
     }
     
     def():void {
-        console.log("Peon defending with a shield!")
+        console.log("Peons defending with a shield!")
     }
     
-    get(getGold: number){
-        return this.gold + getGold
+    collectGold(getGold: number){
+        this.gold$ += getGold
+        console.log(this.gold$)
     }
     
 }
 
-export class Knights extends Characters implements Attack, Defense{
+export class Knights extends Characters implements Attack, Defense, Collect{
     constructor(gold: number, weaponArray: Weapon[]){
         super(gold, weaponArray)
     }
     
     att():void {
-        console.log("Knight attacked with a sword!")
+        console.log(`Knights attacked with a club!`)
     }
     
     def():void {
-        console.log("Knight defending with armor!")
+        console.log("Knights defending with a shield!")
     }
     
-    get(getGold: number){
-        return this.gold + getGold
+    collectGold(getGold: number){
+        this.gold$ += getGold
+        console.log(this.gold$)
     }
     
 }
 
-export class Archers extends Characters implements Attack, Defense{
+export class Archers extends Characters implements Attack, Defense, Collect{
     constructor(gold: number, weaponArray: Weapon[]){
         super(gold, weaponArray)
     }
     
     att():void {
-        console.log("Archer attacked with bow and arrows!")
+        console.log(`Archers attacked with a club!`)
     }
     
     def():void {
-        console.log("Archer defending with only a tunic!")
+        console.log("Archers defending with a shield!")
     }
     
-    get(getGold: number){
-        return this.gold + getGold
+    collectGold(getGold: number){
+        this.gold$ += getGold
+        console.log(this.gold$)
     }
     
 }
@@ -134,7 +126,7 @@ export class Weapon {
     description?: string
     damagePoints: number
 
-    constructor(name: string, damagePoints: number, description?: string, ) {
+    constructor(name: string, damagePoints: number, description?: string ) {
         this.id = uuidv4(),
         this.name = name,
         this.description = description
